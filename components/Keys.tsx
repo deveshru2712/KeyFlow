@@ -1,9 +1,10 @@
 import React from "react";
 
 export interface KeysProps {
-  icon: React.ReactNode;
+  icon: React.ReactNode | string;
   text: string;
   variant?: "default" | "no-icon" | "circle" | "special";
+  className?: string;
 }
 
 export interface VariantClass {
@@ -15,12 +16,12 @@ export interface VariantClass {
 const ClassBasedOnVariant: VariantClass = {
   circle:
     "h-7 w-7 rounded-full border border-slate-50/20 group-hover:border-slate-50/10 flex items-center justify-center",
-  noIcon: "h-full flex items-center justify-start pl-3",
+  noIcon: "h-full w-full flex items-end px-2 pb-2",
   special:
     "bg-gradient-to-b from-slate-600 to-slate-800 border border-slate-400/30 flex flex-col items-center justify-center",
 };
 
-const Keys = ({ icon, text, variant = "default" }: KeysProps) => {
+const Keys = ({ icon, text, className, variant = "default" }: KeysProps) => {
   const getClassBasedOnVariant = (currentVariant: string) => {
     switch (currentVariant) {
       case "circle":
@@ -38,11 +39,11 @@ const Keys = ({ icon, text, variant = "default" }: KeysProps) => {
 
   if (variant === "no-icon") {
     return (
-      <div className="group relative mx-1.5 my-1 h-12 w-fit min-w-16 rounded-md p-[0.5px] text-white shadow-[1px_4px_6px_rgb(225,225,225,0.6)] transition-all duration-300 hover:shadow-[1px_4px_6px_rgb(0,0,0,0.1)]">
+      <div className="group relative mx-1.5 my-1 h-12 w-fit min-w-[75px] rounded-md p-[0.5px] text-white shadow-[1px_4px_6px_rgb(225,225,225,0.6)] transition-all duration-300 hover:shadow-[1px_4px_6px_rgb(0,0,0,0.1)]">
         <div
-          className={`h-full rounded-md text-[10px] shadow-[1px_4px_6px_rgb(225,225,225,0.6)] hover:scale-95 ${variantClasses}`}
+          className={`h-full rounded-md text-[10px] shadow-[1px_4px_6px_rgb(225,225,225,0.6)] hover:scale-95 ${variantClasses} `}
         >
-          <div className="px-2 whitespace-nowrap">{text}</div>
+          <div className={`${className} flex w-full`}>{text}</div>
         </div>
       </div>
     );

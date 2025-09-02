@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 
 const FunctionKeys: KeysProps[] = [
-  { icon: null, text: "esc", variant: "no-icon" },
+  { icon: null, text: "esc", variant: "no-icon", className: "justify-start" },
   { icon: <SunDim size={11} />, text: "F1" },
   { icon: <Sun size={11} />, text: "F2" },
   { icon: <Layout size={11} />, text: "F3" },
@@ -32,6 +32,63 @@ const FunctionKeys: KeysProps[] = [
   { icon: null, text: "", variant: "circle" },
 ];
 
+export const macNumberKeys: KeysProps[] = [
+  {
+    icon: "!",
+    text: "1 ",
+  },
+  {
+    icon: "@",
+    text: "2",
+  },
+  {
+    icon: "#",
+    text: "3",
+  },
+  {
+    icon: "$",
+    text: "4",
+  },
+  {
+    icon: "%",
+    text: "5",
+  },
+  {
+    icon: "^",
+    text: "6",
+  },
+  {
+    icon: "&",
+    text: "7",
+  },
+  {
+    icon: "*",
+    text: "8",
+  },
+  {
+    icon: "(",
+    text: "9",
+  },
+  {
+    icon: ")",
+    text: "0",
+  },
+  {
+    icon: "_",
+    text: "-",
+  },
+  {
+    icon: "+",
+    text: "=",
+  },
+  {
+    icon: "",
+    text: "delete",
+    variant: "no-icon",
+    className: "justify-end",
+  },
+];
+
 const Keyboard = () => {
   return (
     <div className="mx-auto h-80 w-full max-w-5xl rounded-lg border bg-neutral-900 p-3">
@@ -42,6 +99,17 @@ const Keyboard = () => {
             icon={key.icon}
             text={key.text}
             variant={key.variant}
+          />
+        ))}
+      </div>
+      <div className="flex">
+        {macNumberKeys.map((key) => (
+          <Keys
+            key={key.text}
+            icon={key.icon}
+            text={key.text}
+            variant={key.variant}
+            className={key.className}
           />
         ))}
       </div>
