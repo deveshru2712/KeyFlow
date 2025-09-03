@@ -4,6 +4,7 @@ export interface KeysProps {
   icon: React.ReactNode | string;
   text: string;
   variant?: "default" | "no-icon" | "circle" | "special";
+  alignment?: string;
   className?: string;
 }
 
@@ -21,7 +22,13 @@ const ClassBasedOnVariant: VariantClass = {
     "bg-gradient-to-b from-slate-600 to-slate-800 border border-slate-400/30 flex flex-col items-center justify-center",
 };
 
-const Keys = ({ icon, text, className, variant = "default" }: KeysProps) => {
+const Keys = ({
+  icon,
+  text,
+  className,
+  alignment,
+  variant = "default",
+}: KeysProps) => {
   const getClassBasedOnVariant = (currentVariant: string) => {
     switch (currentVariant) {
       case "circle":
@@ -39,11 +46,13 @@ const Keys = ({ icon, text, className, variant = "default" }: KeysProps) => {
 
   if (variant === "no-icon") {
     return (
-      <div className="group relative mx-1.5 my-1 h-12 w-fit min-w-[75px] rounded-md p-[0.5px] text-white shadow-[1px_4px_6px_rgb(225,225,225,0.6)] transition-all duration-300 hover:shadow-[1px_4px_6px_rgb(0,0,0,0.1)]">
+      <div
+        className={`group ${className ? className : "min-w-[75px]"} relative mx-1.5 my-1 h-12 w-fit rounded-md p-[0.5px] text-white shadow-[1px_4px_6px_rgb(225,225,225,0.6)] transition-all duration-300 hover:shadow-[1px_4px_6px_rgb(0,0,0,0.1)]`}
+      >
         <div
           className={`absolute inset-0.5 z-10 rounded-md text-[10px] shadow-[1px_4px_6px_rgb(225,225,225,0.6)] hover:scale-95 ${variantClasses} `}
         >
-          <div className={`${className} flex w-full`}>{text}</div>
+          <div className={`${alignment} flex w-full`}>{text}</div>
         </div>
       </div>
     );

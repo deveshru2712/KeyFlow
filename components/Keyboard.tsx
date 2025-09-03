@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 
 const FunctionKeys: KeysProps[] = [
-  { icon: null, text: "esc", variant: "no-icon", className: "justify-start" },
+  { icon: null, text: "esc", variant: "no-icon", alignment: "justify-start" },
   { icon: <SunDim size={11} />, text: "F1" },
   { icon: <Sun size={11} />, text: "F2" },
   { icon: <Layout size={11} />, text: "F3" },
@@ -32,7 +32,7 @@ const FunctionKeys: KeysProps[] = [
   { icon: null, text: "", variant: "circle" },
 ];
 
-export const macNumberKeys: KeysProps[] = [
+const macNumberKeys: KeysProps[] = [
   {
     icon: "!",
     text: "1 ",
@@ -85,7 +85,69 @@ export const macNumberKeys: KeysProps[] = [
     icon: "",
     text: "delete",
     variant: "no-icon",
-    className: "justify-end",
+    alignment: "justify-end",
+    className: "min-w-[90px]",
+  },
+];
+
+const firstAlphaKeys: KeysProps[] = [
+  {
+    icon: "",
+    text: "tab",
+    variant: "no-icon",
+    alignment: "justify-start",
+  },
+  {
+    icon: "",
+    text: "Q",
+  },
+  {
+    icon: "",
+    text: "W",
+  },
+  {
+    icon: "",
+    text: "E",
+  },
+  {
+    icon: "",
+    text: "R",
+  },
+  {
+    icon: "",
+    text: "T",
+  },
+  {
+    icon: "",
+    text: "Y",
+  },
+  {
+    icon: "",
+    text: "U",
+  },
+  {
+    icon: "",
+    text: "I",
+  },
+  {
+    icon: "",
+    text: "O",
+  },
+  {
+    icon: "",
+    text: "P",
+  },
+  {
+    icon: "{",
+    text: "[",
+  },
+  {
+    icon: "}",
+    text: "}",
+  },
+  {
+    icon: "|",
+    text: "\\",
   },
 ];
 
@@ -110,6 +172,16 @@ const Keyboard = () => {
             text={key.text}
             variant={key.variant}
             className={key.className}
+          />
+        ))}
+      </div>
+      <div className="flex">
+        {firstAlphaKeys.map((key) => (
+          <Keys
+            key={key.text}
+            icon={key.icon}
+            text={key.text}
+            variant={key.variant}
           />
         ))}
       </div>
