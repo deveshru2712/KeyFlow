@@ -3,9 +3,12 @@ import Keys, { KeysProps } from "./Keys";
 import {
   ChevronsLeft,
   ChevronsRight,
+  Command,
+  Globe,
   Layout,
   Mic,
   Moon,
+  Option,
   Play,
   Search,
   Sun,
@@ -157,6 +160,7 @@ const secondAlphaKeys: KeysProps[] = [
     text: "caps lock",
     variant: "no-icon",
     className: "min-w-[100px]",
+    alignment: "justify-start",
   },
   {
     icon: "",
@@ -207,12 +211,81 @@ const secondAlphaKeys: KeysProps[] = [
     text: "return",
     variant: "no-icon",
     className: "min-w-[90px]",
+    alignment: "justify-end",
+  },
+];
+
+const thirdAlphaKeys: KeysProps[] = [
+  {
+    icon: "",
+    text: "shift",
+    variant: "no-icon",
+    className: "min-w-[110px]",
+    alignment: "justify-start",
+  },
+  { icon: "", text: "Z" },
+  { icon: "", text: "X" },
+  { icon: "", text: "C" },
+  { icon: "", text: "V" },
+  { icon: "", text: "B" },
+  { icon: "", text: "N" },
+  { icon: "", text: "M" },
+  { icon: "<", text: "," },
+  { icon: ">", text: "." },
+  { icon: "?", text: "/" },
+  {
+    icon: "",
+    text: "shift",
+    variant: "no-icon",
+    className: "min-w-[110px]",
+    alignment: "justify-end",
+  },
+];
+
+const lastKey: KeysProps[] = [
+  {
+    icon: <Globe size={11} />,
+    text: "fn",
+    variant: "special",
+    alignment: "flex-col-reverse",
+  },
+  {
+    icon: "^",
+    text: "control",
+    variant: "special",
+  },
+  {
+    icon: <Option size={11} />,
+    text: "option",
+    variant: "special",
+  },
+  {
+    icon: <Command size={11} />,
+    text: "command",
+    variant: "special",
+  },
+  {
+    icon: "",
+    text: "space",
+    variant: "space",
+  },
+  {
+    icon: <Command size={11} />,
+    text: "command",
+    variant: "special",
+    className: "text-left w-full pl-2",
+  },
+  {
+    icon: <Option size={11} />,
+    text: "option",
+    variant: "special",
+    className: "text-left w-full pl-2",
   },
 ];
 
 const Keyboard = () => {
   return (
-    <div className="mx-auto h-80 w-full max-w-5xl rounded-lg border bg-neutral-900 p-3">
+    <div className="mx-auto h-fit w-full max-w-5xl rounded-lg border bg-neutral-900 p-3">
       <div className="flex">
         {FunctionKeys.map((key) => (
           <Keys
@@ -221,6 +294,7 @@ const Keyboard = () => {
             text={key.text}
             variant={key.variant}
             className={key.className}
+            alignment={key.alignment}
           />
         ))}
       </div>
@@ -232,6 +306,7 @@ const Keyboard = () => {
             text={key.text}
             variant={key.variant}
             className={key.className}
+            alignment={key.alignment}
           />
         ))}
       </div>
@@ -243,6 +318,7 @@ const Keyboard = () => {
             text={key.text}
             variant={key.variant}
             className={key.className}
+            alignment={key.alignment}
           />
         ))}
       </div>
@@ -254,6 +330,31 @@ const Keyboard = () => {
             text={key.text}
             variant={key.variant}
             className={key.className}
+            alignment={key.alignment}
+          />
+        ))}
+      </div>
+      <div className="flex">
+        {thirdAlphaKeys.map((key, id) => (
+          <Keys
+            key={id}
+            icon={key.icon}
+            text={key.text}
+            variant={key.variant}
+            className={key.className}
+            alignment={key.alignment}
+          />
+        ))}
+      </div>
+      <div className="flex">
+        {lastKey.map((key, id) => (
+          <Keys
+            key={id}
+            icon={key.icon}
+            text={key.text}
+            variant={key.variant}
+            className={key.className}
+            alignment={key.alignment}
           />
         ))}
       </div>

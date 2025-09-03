@@ -3,7 +3,7 @@ import React from "react";
 export interface KeysProps {
   icon: React.ReactNode | string;
   text: string;
-  variant?: "default" | "no-icon" | "circle" | "special";
+  variant?: "default" | "no-icon" | "circle" | "special" | "space";
   alignment?: string;
   className?: string;
 }
@@ -12,14 +12,15 @@ export interface VariantClass {
   circle: string;
   noIcon: string;
   special: string;
+  space: string;
 }
 
 const ClassBasedOnVariant: VariantClass = {
   circle:
     "h-7 w-7 rounded-full border border-slate-50/20 group-hover:border-slate-50/10 flex items-center justify-center",
-  noIcon: "flex items-end px-2 pb-2",
-  special:
-    "bg-gradient-to-b from-slate-600 to-slate-800 border border-slate-400/30 flex flex-col items-center justify-center",
+  noIcon: "flex items-end px-2 pb-2 w-full",
+  special: "flex items-center justify-center",
+  space: "flex items-center justify-center",
 };
 
 const Keys = ({
@@ -37,6 +38,8 @@ const Keys = ({
         return ClassBasedOnVariant.noIcon;
       case "special":
         return ClassBasedOnVariant.special;
+      case "space":
+        return ClassBasedOnVariant.space;
       default:
         return "flex flex-col items-center justify-center";
     }
@@ -47,10 +50,10 @@ const Keys = ({
   if (variant === "no-icon") {
     return (
       <div
-        className={`group ${className ? className : "min-w-[75px]"} relative mx-1.5 my-1 h-12 w-fit rounded-md p-[0.5px] text-white shadow-[1px_4px_6px_rgb(225,225,225,0.6)] transition-all duration-300 hover:shadow-[1px_4px_6px_rgb(0,0,0,0.1)]`}
+        className={`group relative mx-1.5 my-1 h-12 flex-1 rounded-md p-[0.5px] text-white shadow-[1px_4px_6px_rgb(225,225,225,0.6)] transition-all duration-300 hover:shadow-[1px_4px_6px_rgb(0,0,0,0.1)] ${className || ""}`}
       >
         <div
-          className={`absolute inset-0.5 z-10 rounded-md text-[10px] shadow-[1px_4px_6px_rgb(225,225,225,0.6)] hover:scale-95 ${variantClasses} `}
+          className={`absolute inset-0.5 z-10 rounded-md text-[10px] shadow-[1px_4px_6px_rgb(225,225,225,0.6)] hover:scale-95 ${variantClasses} bg-neutral-800`}
         >
           <div className={`${alignment} flex w-full`}>{text}</div>
         </div>
@@ -58,17 +61,43 @@ const Keys = ({
     );
   }
 
-  return (
-    <div className="group relative mx-1.5 my-1 h-12 w-full rounded-md p-[0.5px] text-white shadow-[1px_4px_6px_rgb(225,225,225,0.6)] transition-all duration-300 hover:shadow-[1px_4px_6px_rgb(0,0,0,0.1)]">
+  if (variant === "space") {
+    return (
       <div
-        className={`absolute inset-0.5 z-10 rounded-md text-[10px] shadow-[1px_4px_6px_rgb(225,225,225,0.6)] hover:scale-95 ${variant !== "circle" ? variantClasses : "flex items-center justify-center"}`}
+        className={`group relative mx-1.5 my-1 h-12 w-full rounded-md p-[0.5px] text-white shadow-[1px_4px_6px_rgb(225,225,225,0.6)] transition-all duration-300 hover:shadow-[1px_4px_6px_rgb(0,0,0,0.1)] ${className || ""}`}
+      >
+        <div
+          className={`absolute inset-0.5 z-10 rounded-md text-[10px] shadow-[1px_4px_6px_rgb(225,225,225,0.6)] hover:scale-95 ${variantClasses} bg-neutral-800`}
+        >
+          {text && (
+            <span className="text-xs text-amber-50 opacity-100">{text}</span>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="group relative mx-1.5 my-1 h-12 w-[57px] shrink-0 rounded-md p-[0.5px] text-white shadow-[1px_4px_6px_rgb(225,225,225,0.6)] transition-all duration-300 ease-in-out hover:shadow-[1px_4px_6px_rgb(0,0,0,0.1)]">
+      <div
+        className={`absolute inset-0.5 z-10 rounded-md text-[10px] shadow-[1px_4px_6px_rgb(225,225,225,0.6)] transition-transform duration-200 ease-in-out hover:scale-95 ${variant !== "circle" ? variantClasses : "flex items-center justify-center"} ${alignment ? alignment : "flex-col"} bg-neutral-800`}
       >
         {variant === "circle" ? (
-          <div className={`${variantClasses}`} />
+          <div
+            className={`${variantClasses} transition-colors duration-200 ease-in-out`}
+          />
         ) : (
           <>
-            <div>{icon}</div>
-            <div>{text}</div>
+            <div
+              className={`${alignment ? "w-full pl-2" : ""} ${variant === "special" && !alignment && !className && "flex w-full justify-end pr-2"} ${className} transition-colors duration-200 ease-in-out`}
+            >
+              {icon}
+            </div>
+            <div
+              className={`${alignment ? "w-full pr-2 text-right" : ""} transition-colors duration-200 ease-in-out`}
+            >
+              {text}
+            </div>
           </>
         )}
       </div>
