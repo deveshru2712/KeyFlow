@@ -6,6 +6,7 @@ export interface KeysProps {
   variant?: "default" | "no-icon" | "circle" | "special" | "space";
   alignment?: string;
   className?: string;
+  isActive?: boolean;
 }
 
 export interface VariantClass {
@@ -29,6 +30,7 @@ const Keys = ({
   className,
   alignment,
   variant = "default",
+  isActive = false,
 }: KeysProps) => {
   const getClassBasedOnVariant = (currentVariant: string) => {
     switch (currentVariant) {
@@ -47,10 +49,15 @@ const Keys = ({
 
   const variantClasses = getClassBasedOnVariant(variant);
 
+  // Add blue ring when active
+  const activeRingClasses = isActive
+    ? "ring-2 ring-blue-500 ring-offset-2 ring-offset-neutral-900"
+    : "";
+
   if (variant === "no-icon") {
     return (
       <div
-        className={`relative mx-1.5 my-1 h-12 flex-1 rounded-md p-[0.5px] text-white shadow-[1px_4px_6px_rgb(225,225,225,0.6)] transition-all duration-300 ease-in-out hover:shadow-[1px_4px_6px_rgb(0,0,0,0.1)] ${className || ""}`}
+        className={`relative mx-1.5 my-1 h-12 flex-1 rounded-md p-[0.5px] text-white shadow-[1px_4px_6px_rgb(225,225,225,0.6)] transition-all duration-300 ease-in-out hover:shadow-[1px_4px_6px_rgb(0,0,0,0.1)] ${activeRingClasses} ${className || ""}`}
       >
         <div
           className={`absolute inset-0.5 z-10 rounded-md text-[10px] shadow-[1px_4px_6px_rgb(225,225,225,0.6)] hover:scale-95 ${variantClasses} bg-neutral-800`}
@@ -64,7 +71,7 @@ const Keys = ({
   if (variant === "space") {
     return (
       <div
-        className={`relative mx-1.5 my-1 h-12 w-full rounded-md p-[0.5px] text-white shadow-[1px_4px_6px_rgb(225,225,225,0.6)] hover:shadow-none ${className || ""}`}
+        className={`relative mx-1.5 my-1 h-12 w-full rounded-md p-[0.5px] text-white shadow-[1px_4px_6px_rgb(225,225,225,0.6)] hover:shadow-none ${activeRingClasses} ${className || ""}`}
       >
         <div
           className={`ease--out absolute inset-0.5 z-10 rounded-md text-[10px] shadow-[1px_4px_6px_rgb(225,225,225,0.6)] transition-all duration-75 hover:scale-95 ${variantClasses} bg-neutral-800`}
@@ -78,7 +85,9 @@ const Keys = ({
   }
 
   return (
-    <div className="relative mx-1.5 my-1 h-12 w-14 shrink-0 rounded-md p-[0.5px] text-white shadow-[1px_4px_6px_rgb(225,225,225,0.6)] transition-all duration-300 ease-in-out hover:shadow-[1px_4px_6px_rgb(0,0,0,0.1)]">
+    <div
+      className={`relative mx-1.5 my-1 h-12 w-14 shrink-0 rounded-md p-[0.5px] text-white shadow-[1px_4px_6px_rgb(225,225,225,0.6)] transition-all duration-300 ease-in-out hover:shadow-[1px_4px_6px_rgb(0,0,0,0.1)] ${activeRingClasses}`}
+    >
       <div
         className={`absolute inset-0.5 z-10 rounded-md text-[10px] shadow-[1px_4px_6px_rgb(225,225,225,0.6)] transition-transform duration-200 ease-in-out hover:scale-95 ${variant !== "circle" ? variantClasses : "flex items-center justify-center"} ${alignment ? alignment : "flex-col"} bg-neutral-800`}
       >

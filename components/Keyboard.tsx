@@ -18,6 +18,10 @@ import {
   VolumeX,
 } from "lucide-react";
 
+interface KeyboardProps {
+  activeKeys?: Set<string>;
+}
+
 const FunctionKeys: KeysProps[] = [
   { icon: null, text: "esc", variant: "no-icon", alignment: "justify-start" },
   { icon: <SunDim size={11} />, text: "F1" },
@@ -36,54 +40,18 @@ const FunctionKeys: KeysProps[] = [
 ];
 
 const macNumberKeys: KeysProps[] = [
-  {
-    icon: "!",
-    text: "1 ",
-  },
-  {
-    icon: "@",
-    text: "2",
-  },
-  {
-    icon: "#",
-    text: "3",
-  },
-  {
-    icon: "$",
-    text: "4",
-  },
-  {
-    icon: "%",
-    text: "5",
-  },
-  {
-    icon: "^",
-    text: "6",
-  },
-  {
-    icon: "&",
-    text: "7",
-  },
-  {
-    icon: "*",
-    text: "8",
-  },
-  {
-    icon: "(",
-    text: "9",
-  },
-  {
-    icon: ")",
-    text: "0",
-  },
-  {
-    icon: "_",
-    text: "-",
-  },
-  {
-    icon: "+",
-    text: "=",
-  },
+  { icon: "!", text: "1" },
+  { icon: "@", text: "2" },
+  { icon: "#", text: "3" },
+  { icon: "$", text: "4" },
+  { icon: "%", text: "5" },
+  { icon: "^", text: "6" },
+  { icon: "&", text: "7" },
+  { icon: "*", text: "8" },
+  { icon: "(", text: "9" },
+  { icon: ")", text: "0" },
+  { icon: "_", text: "-" },
+  { icon: "+", text: "=" },
   {
     icon: "",
     text: "delete",
@@ -100,58 +68,19 @@ const firstAlphaKeys: KeysProps[] = [
     variant: "no-icon",
     alignment: "justify-start",
   },
-  {
-    icon: "",
-    text: "Q",
-  },
-  {
-    icon: "",
-    text: "W",
-  },
-  {
-    icon: "",
-    text: "E",
-  },
-  {
-    icon: "",
-    text: "R",
-  },
-  {
-    icon: "",
-    text: "T",
-  },
-  {
-    icon: "",
-    text: "Y",
-  },
-  {
-    icon: "",
-    text: "U",
-  },
-  {
-    icon: "",
-    text: "I",
-  },
-  {
-    icon: "",
-    text: "O",
-  },
-  {
-    icon: "",
-    text: "P",
-  },
-  {
-    icon: "{",
-    text: "[",
-  },
-  {
-    icon: "}",
-    text: "}",
-  },
-  {
-    icon: "|",
-    text: "\\",
-  },
+  { icon: "", text: "Q" },
+  { icon: "", text: "W" },
+  { icon: "", text: "E" },
+  { icon: "", text: "R" },
+  { icon: "", text: "T" },
+  { icon: "", text: "Y" },
+  { icon: "", text: "U" },
+  { icon: "", text: "I" },
+  { icon: "", text: "O" },
+  { icon: "", text: "P" },
+  { icon: "{", text: "[" },
+  { icon: "}", text: "}" },
+  { icon: "|", text: "\\" },
 ];
 
 const secondAlphaKeys: KeysProps[] = [
@@ -162,50 +91,17 @@ const secondAlphaKeys: KeysProps[] = [
     className: "min-w-[100px]",
     alignment: "justify-start",
   },
-  {
-    icon: "",
-    text: "A",
-  },
-  {
-    icon: "",
-    text: "S",
-  },
-  {
-    icon: "",
-    text: "D",
-  },
-  {
-    icon: "",
-    text: "F",
-  },
-  {
-    icon: "",
-    text: "G",
-  },
-  {
-    icon: "",
-    text: "H",
-  },
-  {
-    icon: "",
-    text: "J",
-  },
-  {
-    icon: "",
-    text: "K",
-  },
-  {
-    icon: "",
-    text: "L",
-  },
-  {
-    icon: ":",
-    text: ";",
-  },
-  {
-    icon: String.raw`"`,
-    text: "'",
-  },
+  { icon: "", text: "A" },
+  { icon: "", text: "S" },
+  { icon: "", text: "D" },
+  { icon: "", text: "F" },
+  { icon: "", text: "G" },
+  { icon: "", text: "H" },
+  { icon: "", text: "J" },
+  { icon: "", text: "K" },
+  { icon: "", text: "L" },
+  { icon: ":", text: ";" },
+  { icon: String.raw`"`, text: "'" },
   {
     icon: "",
     text: "return",
@@ -283,7 +179,7 @@ const lastKey: KeysProps[] = [
   },
 ];
 
-const Keyboard = () => {
+const Keyboard: React.FC<KeyboardProps> = ({ activeKeys = new Set() }) => {
   return (
     <div className="mx-auto h-fit w-full max-w-5xl rounded-2xl border bg-neutral-900 p-3">
       <div className="flex">
@@ -295,6 +191,7 @@ const Keyboard = () => {
             variant={key.variant}
             className={key.className}
             alignment={key.alignment}
+            isActive={activeKeys.has(key.text)}
           />
         ))}
       </div>
@@ -307,6 +204,7 @@ const Keyboard = () => {
             variant={key.variant}
             className={key.className}
             alignment={key.alignment}
+            isActive={activeKeys.has(key.text)}
           />
         ))}
       </div>
@@ -319,6 +217,7 @@ const Keyboard = () => {
             variant={key.variant}
             className={key.className}
             alignment={key.alignment}
+            isActive={activeKeys.has(key.text)}
           />
         ))}
       </div>
@@ -331,6 +230,7 @@ const Keyboard = () => {
             variant={key.variant}
             className={key.className}
             alignment={key.alignment}
+            isActive={activeKeys.has(key.text)}
           />
         ))}
       </div>
@@ -343,6 +243,7 @@ const Keyboard = () => {
             variant={key.variant}
             className={key.className}
             alignment={key.alignment}
+            isActive={activeKeys.has(key.text)}
           />
         ))}
       </div>
@@ -355,6 +256,7 @@ const Keyboard = () => {
             variant={key.variant}
             className={key.className}
             alignment={key.alignment}
+            isActive={activeKeys.has(key.text)}
           />
         ))}
       </div>
