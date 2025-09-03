@@ -285,7 +285,7 @@ const lastKey: KeysProps[] = [
 
 const Keyboard = () => {
   return (
-    <div className="mx-auto h-fit w-full max-w-5xl rounded-lg border bg-neutral-900 p-3">
+    <div className="mx-auto h-fit w-full max-w-5xl rounded-2xl border bg-neutral-900 p-3">
       <div className="flex">
         {FunctionKeys.map((key) => (
           <Keys
