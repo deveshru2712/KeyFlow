@@ -151,6 +151,65 @@ const firstAlphaKeys: KeysProps[] = [
   },
 ];
 
+const secondAlphaKeys: KeysProps[] = [
+  {
+    icon: "",
+    text: "caps lock",
+    variant: "no-icon",
+    className: "min-w-[100px]",
+  },
+  {
+    icon: "",
+    text: "A",
+  },
+  {
+    icon: "",
+    text: "S",
+  },
+  {
+    icon: "",
+    text: "D",
+  },
+  {
+    icon: "",
+    text: "F",
+  },
+  {
+    icon: "",
+    text: "G",
+  },
+  {
+    icon: "",
+    text: "H",
+  },
+  {
+    icon: "",
+    text: "J",
+  },
+  {
+    icon: "",
+    text: "K",
+  },
+  {
+    icon: "",
+    text: "L",
+  },
+  {
+    icon: ":",
+    text: ";",
+  },
+  {
+    icon: String.raw`"`,
+    text: "'",
+  },
+  {
+    icon: "",
+    text: "return",
+    variant: "no-icon",
+    className: "min-w-[90px]",
+  },
+];
+
 const Keyboard = () => {
   return (
     <div className="mx-auto h-80 w-full max-w-5xl rounded-lg border bg-neutral-900 p-3">
@@ -161,6 +220,7 @@ const Keyboard = () => {
             icon={key.icon}
             text={key.text}
             variant={key.variant}
+            className={key.className}
           />
         ))}
       </div>
@@ -182,6 +242,18 @@ const Keyboard = () => {
             icon={key.icon}
             text={key.text}
             variant={key.variant}
+            className={key.className}
+          />
+        ))}
+      </div>
+      <div className="flex">
+        {secondAlphaKeys.map((key) => (
+          <Keys
+            key={key.text}
+            icon={key.icon}
+            text={key.text}
+            variant={key.variant}
+            className={key.className}
           />
         ))}
       </div>
