@@ -18,9 +18,8 @@ import {
   VolumeX,
 } from "lucide-react";
 
-interface KeyboardProps {
-  activeKeys?: Set<string>;
-}
+// interface KeyboardProps {
+// }
 
 const FunctionKeys: KeysProps[] = [
   { icon: null, text: "esc", variant: "no-icon", alignment: "justify-start" },
@@ -179,7 +178,11 @@ const lastKey: KeysProps[] = [
   },
 ];
 
-const Keyboard: React.FC<KeyboardProps> = ({ activeKeys = new Set() }) => {
+interface KeyboardProps {
+  activeKeys?: Set<string>;
+}
+
+const Keyboard = ({ activeKeys = new Set() }: KeyboardProps) => {
   return (
     <div className="mx-auto h-fit w-full max-w-5xl rounded-2xl border bg-neutral-900 p-3">
       <div className="flex">

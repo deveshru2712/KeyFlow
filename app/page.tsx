@@ -7,59 +7,86 @@ const Page = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [activeKeys, setActiveKeys] = useState<Set<string>>(new Set());
 
-  const handleInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    const mappedKey = keyMapping[event.key];
-    if (mappedKey) {
-      setActiveKeys((prev) => new Set(prev).add(mappedKey));
+  const keyTimeouts = useRef<Map<string, NodeJS.Timeout>>(new Map());
+
+  const MIN_HIGHLIGHT_DURATION = 150;
+
+  const addActiveKey = (mappedKey: string) => {
+    const existingTimeout = keyTimeouts.current.get(mappedKey);
+    if (existingTimeout) {
+      clearTimeout(existingTimeout);
     }
-    console.log("Key pressed:", event.key, "Mapped to:", mappedKey);
+
+    setActiveKeys((prev) => new Set(prev).add(mappedKey));
   };
 
-  const handleInputKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    const mappedKey = keyMapping[event.key];
-    if (mappedKey) {
+  const removeActiveKey = (mappedKey: string) => {
+    const timeoutId = setTimeout(() => {
       setActiveKeys((prev) => {
         const newSet = new Set(prev);
         newSet.delete(mappedKey);
         return newSet;
       });
-    }
-    console.log("Key released:", event.key, "Mapped to:", mappedKey);
+
+      keyTimeouts.current.delete(mappedKey);
+    }, MIN_HIGHLIGHT_DURATION);
+
+    keyTimeouts.current.set(mappedKey, timeoutId);
   };
 
-  // Handle global key events for better responsiveness
+  const handleInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.repeat) return;
+
+    const mappedKey = keyMapping[event.key];
+    if (mappedKey) {
+      addActiveKey(mappedKey);
+    }
+  };
+
+  const handleInputKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const mappedKey = keyMapping[event.key];
+    if (mappedKey) {
+      removeActiveKey(mappedKey);
+    }
+  };
+
   useEffect(() => {
     const handleGlobalKeyDown = (event: KeyboardEvent) => {
+      // Ignore repeat events
+      if (event.repeat) return;
+
       const mappedKey = keyMapping[event.key];
       if (mappedKey) {
-        setActiveKeys((prev) => new Set(prev).add(mappedKey));
+        addActiveKey(mappedKey);
       }
     };
 
     const handleGlobalKeyUp = (event: KeyboardEvent) => {
       const mappedKey = keyMapping[event.key];
       if (mappedKey) {
-        setActiveKeys((prev) => {
-          const newSet = new Set(prev);
-          newSet.delete(mappedKey);
-          return newSet;
-        });
+        removeActiveKey(mappedKey);
       }
     };
 
-    // Add global event listeners
+    // Add  event listeners
     window.addEventListener("keydown", handleGlobalKeyDown);
     window.addEventListener("keyup", handleGlobalKeyUp);
+
+    const currentKeyTimeouts = keyTimeouts.current;
 
     // Cleanup
     return () => {
       window.removeEventListener("keydown", handleGlobalKeyDown);
       window.removeEventListener("keyup", handleGlobalKeyUp);
+
+      currentKeyTimeouts.forEach((timeout) => clearTimeout(timeout));
+      currentKeyTimeouts.clear();
     };
   }, []);
 
-  // Clear all active keys when input loses focus (optional)
   const handleInputBlur = () => {
+    keyTimeouts.current.forEach((timeout) => clearTimeout(timeout));
+    keyTimeouts.current.clear();
     setActiveKeys(new Set());
   };
 
