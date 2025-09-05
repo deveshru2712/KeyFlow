@@ -4,9 +4,9 @@ import ModeToggle from "./Toggle";
 
 const Navbar = () => {
   return (
-    <div className="h-12 w-full bg-transparent px-12 py-4">
+    <div className="w-full bg-transparent px-12 py-4">
       <nav className="mx-auto flex max-w-6xl items-center justify-between">
-        <Link href={"/"} className="text-4xl font-medium text-slate-300">
+        <Link href={"/"} className="text-4xl font-semibold tracking-normal">
           Key Flow
         </Link>
         <ModeToggle />

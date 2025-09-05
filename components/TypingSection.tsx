@@ -1,9 +1,9 @@
 "use client";
 import { keyMapping } from "@/constant";
-import Keyboard from "@/components/Keyboard";
+import Keyboard from "@/components/keyboard/Keyboard";
 import React, { useEffect, useRef, useState } from "react";
 
-const Main = () => {
+const TypingSection = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [activeKeys, setActiveKeys] = useState<Set<string>>(new Set());
 
@@ -112,4 +112,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default TypingSection;
