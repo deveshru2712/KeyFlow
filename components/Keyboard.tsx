@@ -184,7 +184,7 @@ interface KeyboardProps {
 
 const Keyboard = ({ activeKeys = new Set() }: KeyboardProps) => {
   return (
-    <div className="mx-auto h-fit w-full max-w-5xl rounded-2xl border bg-neutral-900 p-3">
+    <div className="mx-auto h-fit w-full max-w-5xl rounded-2xl border bg-black p-3 dark:bg-neutral-200">
       <div className="flex">
         {FunctionKeys.map((key) => (
           <Keys
