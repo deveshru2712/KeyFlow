@@ -4,7 +4,7 @@ import Keyboard from "@/components/keyboard/Keyboard";
 import React, { useEffect, useRef, useState } from "react";
 
 const TypingSection = () => {
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  const inputRef = useRef<HTMLTextAreaElement | null>(null);
   const [activeKeys, setActiveKeys] = useState<Set<string>>(new Set());
 
   const keyTimeouts = useRef<Map<string, NodeJS.Timeout>>(new Map());
@@ -34,7 +34,9 @@ const TypingSection = () => {
     keyTimeouts.current.set(mappedKey, timeoutId);
   };
 
-  const handleInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleInputKeyDown = (
+    event: React.KeyboardEvent<HTMLTextAreaElement>,
+  ) => {
     if (event.repeat) return;
 
     const mappedKey = keyMapping[event.key];
@@ -43,7 +45,9 @@ const TypingSection = () => {
     }
   };
 
-  const handleInputKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleInputKeyUp = (
+    event: React.KeyboardEvent<HTMLTextAreaElement>,
+  ) => {
     const mappedKey = keyMapping[event.key];
     if (mappedKey) {
       removeActiveKey(mappedKey);
@@ -68,7 +72,7 @@ const TypingSection = () => {
       }
     };
 
-    // Add  event listeners
+    // Add event listeners
     window.addEventListener("keydown", handleGlobalKeyDown);
     window.addEventListener("keyup", handleGlobalKeyUp);
 
@@ -91,23 +95,22 @@ const TypingSection = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-5">
-      <input
-        type="text"
-        className="rounded bg-red-300 px-4 py-2 placeholder:text-slate-700"
-        placeholder="type here"
-        ref={inputRef}
-        onKeyDown={handleInputKeyDown}
-        onKeyUp={handleInputKeyUp}
-        onBlur={handleInputBlur}
-      />
-
-      <div className="max-w-md text-center text-sm text-gray-600">
-        Active keys: {Array.from(activeKeys).join(", ") || "None"}
+    <div className="flex h-full flex-1 flex-col items-center justify-center gap-5 overflow-hidden">
+      <div className="w-5xl px-6">
+        <textarea
+          className="h-48 w-full resize-none rounded px-4 py-2 text-4xl leading-relaxed text-slate-600 outline-none placeholder:text-slate-700 dark:text-slate-50/30 dark:placeholder:text-slate-50/50"
+          placeholder="type here"
+          ref={inputRef}
+          onKeyDown={handleInputKeyDown}
+          onKeyUp={handleInputKeyUp}
+          onBlur={handleInputBlur}
+        />
       </div>
 
       {/* Pass activeKeys to Keyboard component for visual feedback */}
-      <Keyboard activeKeys={activeKeys} />
+      <div className="overflow-hidden">
+        <Keyboard activeKeys={activeKeys} />
+      </div>
     </div>
   );
 };
