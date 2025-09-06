@@ -18,7 +18,7 @@ export interface VariantClass {
 
 const ClassBasedOnVariant: VariantClass = {
   circle:
-    "h-7 w-7 rounded-full border border-slate-50/20 group-hover:border-slate-50/10 flex items-center justify-center",
+    "h-7 w-7 rounded-full border border-slate-50/20 group-hover:border-slate-50/10 flex items-center justify-center dark:border-slate-300 hover:dark:border-slate-200",
   noIcon: "flex items-end px-2 pb-2 w-full",
   special: "flex items-center justify-center",
   space: "flex items-center justify-center",
@@ -75,7 +75,7 @@ const Keys = ({
   if (variant === "space") {
     return (
       <div
-        className={`relative mx-1.5 my-1 h-12 w-full rounded-md p-[0.5px] text-white shadow-[1px_4px_6px_rgb(225,225,225,0.6)] hover:shadow-none dark:shadow-[1px_4px_6px_rgb(0,0,0,0.4)] ${activeRingClasses} ${className || ""}`}
+        className={`relative mx-1.5 my-1 h-12 w-full rounded-md p-[0.5px] text-white shadow-[1px_4px_6px_rgb(225,225,225,0.6)] hover:shadow-none dark:shadow-[1px_4px_6px_rgb(0,0,0,0.4)] dark:hover:shadow-none ${activeRingClasses} ${className || ""}`}
       >
         <div
           className={`ease--out absolute inset-0.5 z-10 rounded-md text-[10px] shadow-[1px_4px_6px_rgb(225,225,225,0.6)] transition-all duration-75 hover:scale-95 dark:shadow-[1px_4px_6px_rgb(0,0,0,0.4)] ${variantClasses} bg-neutral-800 dark:bg-slate-50`}
