@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 import ModeToggle from "./Toggle";
 
-const Navbar = () => {
+export default function MainNavbar() {
   return (
     <div className="w-full bg-transparent px-12 py-4">
       <nav className="mx-auto flex max-w-6xl items-center justify-between">
@@ -13,6 +13,4 @@ const Navbar = () => {
       </nav>
     </div>
   );
-};
-
-export default Navbar;
+}
